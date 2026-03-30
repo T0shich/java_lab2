@@ -2,12 +2,8 @@ package org.example;
 
 public class Main {
     static void main() {
-        IO.println(String.format("Hello and welcome!"));
-
-        for (int i = 1; i <= 5; i++) {
-
-
-            IO.println("i = " + i);
-        }
+        System.out.println(Solution.calculate("2 + 3 * (4 - 1)"));
+        System.out.println(Solution.calculate("10 / 0"));
+        System.out.println(Solution.calculate("2 + * 3"));
     }
 }
