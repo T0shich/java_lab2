@@ -1,9 +1,18 @@
 package org.example;
 
+/**
+ * Вычисляет арифметические выражения в строке.
+ */
 public class Solution {
     private static final String INVALID_EXPRESSION = "Ошибка: некорректное выражение";
     private static final String DIVISION_BY_ZERO = "Ошибка: деление на ноль";
 
+    /**
+     * Считает выражение и возвращает результат или сообщение об ошибке.
+     *
+     * @param expression строка с выражением
+     * @return результат вычисления или текст ошибки
+     */
     public static String calculate(String expression) {
         if (expression == null || expression.trim().isEmpty()) {
             return INVALID_EXPRESSION;
@@ -25,7 +34,12 @@ public class Solution {
             return INVALID_EXPRESSION;
         }
     }
-
+    /**
+     * Форматирует число в строку.
+     *
+     * @param value вычисленное значение
+     * @return строка с числом или сообщение об ошибке
+     */
     private static String formatResult(double value) {
         if (Double.isInfinite(value) || Double.isNaN(value)) {
             return INVALID_EXPRESSION;
@@ -38,15 +52,26 @@ public class Solution {
         return String.valueOf(value);
     }
 
+    /**
+     * Внутренний парсер выражения.
+     */
     private static final class Parser {
         private final String input;
         private int position;
 
+        /**
+         * Создает парсер для входной строки.
+         */
         private Parser(String input) {
             this.input = input;
             this.position = 0;
         }
 
+        /**
+         * Разбирает сумму и разность.
+         *
+         * @return вычисленное значение
+         */
         private double parseExpression() {
             double value = parseTerm();
 
@@ -62,6 +87,11 @@ public class Solution {
             }
         }
 
+        /**
+         * Разбирает умножение и деление.
+         *
+         * @return вычисленное значение
+         */
         private double parseTerm() {
             double value = parseFactor();
 
@@ -81,6 +111,11 @@ public class Solution {
             }
         }
 
+        /**
+         * Разбирает число, унарный знак или выражение в скобках.
+         *
+         * @return вычисленное значение
+         */
         private double parseFactor() {
             skipSpaces();
 
@@ -103,6 +138,11 @@ public class Solution {
             return parseNumber();
         }
 
+        /**
+         * Считывает число из строки.
+         *
+         * @return найденное число
+         */
         private double parseNumber() {
             skipSpaces();
             int start = position;
@@ -129,6 +169,9 @@ public class Solution {
             return Double.parseDouble(input.substring(start, position));
         }
 
+        /**
+         * Проверяет текущий символ и сдвигает позицию при совпадении.
+         */
         private boolean match(char expected) {
             if (isEnd() || input.charAt(position) != expected) {
                 return false;
@@ -137,12 +180,18 @@ public class Solution {
             return true;
         }
 
+        /**
+         * Пропускает пробелы.
+         */
         private void skipSpaces() {
             while (!isEnd() && Character.isWhitespace(input.charAt(position))) {
                 position++;
             }
         }
 
+        /**
+         * Проверяет, что строка закончилась.
+         */
         private boolean isEnd() {
             return position >= input.length();
         }
